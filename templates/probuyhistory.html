@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}<br><br>
+<div style="font-size: 36px;text-align: center">ประวัติการซื้อสินค้า</div>
+<div class="container mt-5">
+        <div class="row">
+                <div class="card-group">
+
+{% for order in my_data  %}
+    <div class="col-md-4">
+    <div class="card ">
+                        {% if order.payslip_pic %}
+                        <img class="card-img-top" src="{{ order.payslip_pic.url }}" alt="Card image" style="width:250px;height:250px;margin-left: auto;margin-right: auto">
+                        {% else %}
+                        <img class="card-img-top" src="{% static 'image/noimage.jpg' %}" alt="Card image" style="width:250px;height:250px;margin-left: auto;margin-right: auto">
+                        {% endif %}
+                        <div class="card-body pt-0">
+                            <p class="card-title ">
+                            <div class="d-flex justify-content-center ">
+                            <div>
+                                <div>ออเดอร์ ::: {{ order.or_id }}</div>
+                                <div>วันที่ ::: {{ order.date_buy }}</div>
+                                <div>รหัสสินค้า ::: {{ order.pro_id }}</div>
+                                <div>ที่อยู่จัดส่ง ::: {{ order.deli_address }}</div>
+                                <div>สถานะ ::: {{ order.status }}</div>
+                                <div>บัญชีธนาคาร ::: {{ order.bank_select }}</div>
+                                <div>ราคา ::: {{ order.or_sale }}</div>
+                            </div></div>
+                            </p>
+
+                        </div>
+                    </div>
+    </div>
+ {% empty %}
+    <div class="card">
+                        <div class="card-body pt-0">
+                            <p class="card-title">
+                                <div style="padding: 35px 0;text-align: center;font-size: 46px">ไม่มีประวัติการซื้อ</div>
+
+
+                        </div>
+                    </div>
+ {% endfor %}
+                        </div>
+            </div>
+        </div>
+
+{% endblock %}

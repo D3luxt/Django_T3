@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for product in my_data %}
+…
+<td>
+    <form action="{% url 'productdelete' product.pro_id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" >Delete</button>
+    </form>
+</td>
+…
+{% endfor %}
+{% endblock %}

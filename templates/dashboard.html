@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{#    <br>#}
+{#    <center>#}
+{#    <h1>Dashboard ของ {{ user.username }}</h1>#}
+{#    </center>#}
+
+    <div class="container text-center mt-5" style="font-size: 18px;font-weight: bold">
+        <div class="row">
+                <div class="card-group">
+
+    <div class="col-md-12">
+    <div class="card">
+                        <br><div style="font-size: 30px">Dashboard ของ {{ user.username }}</div><br>
+                        {% if exform.profile_pic %}
+                        <img class="card-img-top" src="{{ exform.profile_pic.url }}" alt="Card image" style="width:300px;height:300px;margin-left: auto;margin-right: auto">
+                        {% else %}
+                        <img class="card-img-top" src="{% static 'image/noimage.jpg' %}" alt="Card image" style="width:300px;height:300px;margin-left: auto;margin-right: auto">
+                        {% endif %}
+                        <div class="card-body pt-0">
+                                <div class="row">
+                                    <div class="col-xl-5">
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <p class="card-title">
+{#                                            {% if form.first_name %}#}
+                                                <br><div style="margin-left: auto;text-align: start">ชื่อ &nbsp;&nbsp;&nbsp;:::&nbsp; {{ form.first_name }} {{ form.last_name }}</div>
+{#                                            {% endif %}{% if exform.gender %}#}
+                                                <br><div style="text-align: start">เพศ &nbsp;::: {{ exform.gender }}</div>
+{#                                            {% endif %}{% if exform.phone %}#}
+                                                <br><div style="text-align: start">เบอร์ ::: {{ exform.phone }}</div>
+{#                                            {% endif %}#}
+                                        </p>
+                                    </div>
+                                    <div class="col-xl-4">
+                                    </div>
+                                </div>
+
+
+                        </div>
+                    </div>
+    </div>
+
+                        </div>
+            </div>
+        </div>
+<br><center><a href="{% url 'profile' %}" class="btn btn-success mt-3" style="width:20%;height:20%;font-size: 20px"><i class="fa-solid fa-gear"></i> แก้ไขข้อมูลส่วนตัว</a></center>
+
+{% endblock %}

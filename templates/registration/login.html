@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <br><br><br>
+    <div class="container bg-white h-auto w-75 bg-light border border-4 ">
+        <center>
+            <form method="POST" action='{% url 'login' %}'>
+              {% csrf_token %}
+
+                <br><br>
+
+                <div class="border border-1 w-50">
+                    <br>
+                    <h4>ล็อคอิน</h4>
+                    <br>
+                    <div class="form-outline mb-4 w-50">
+                    ชื่อผู้ใช้ :<br>
+                    {{ form.username }}
+                    {{ form.username.errors }}</div>
+                    {% if form.username_errors %}
+                        <span>{{ form.username_errors }}</span>
+                    {% endif %}
+
+                    <!-- Password input -->
+                    <div  class="form-outline mb-4 w-50">
+                    รหัสผ่าน :<br>
+                    {{ form.password }}
+                    {{ form.password.errors }}</div>
+
+                    <button type="submit" class="btn btn-primary btn-block mb-4 w-50">ล็อคอิน</button>
+                    <div class="text-center">
+                        <p>ยังไม่เป็นสมาชิก ? <a href="{% url  'register' %}">สมัครสมาชิก</a></p>
+                    </div>
+                    <br>
+                </div>
+
+            </form>
+        </center>
+        <br>
+    </div>
+    <br>
+    <br>
+
+{% endblock %}

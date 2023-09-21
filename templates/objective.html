@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <img src="{% static 'image/image-about2.jpg' %}" alt="Image About"
+         style="object-fit:cover; width:100%; height: 600px">
+
+    <div class="container pt-5">
+        <div class="pt-5 text-center">
+            <div class="card shadow-sm">
+                <h2 class="card-header pt-3" style="color: white; background-color: #C25B56">วัตถุประสงค์</h2>
+                <div class="card-body pt-5" style="font-size: 18px">
+                    <div class="row">
+                        <div class="col-xl-2"></div>
+                        <div class="col-xl-8">
+                            <ol class="list-group list-group-numbered text-start">
+                                <li class="list-group-item">เพื่อพัฒนาเว็บแอพพลิเคชันทางด้านฝากขายสินค้าออนไลน์เกี่ยวกับโน๊ตบุ๊ค</li>
+                                <li class="list-group-item">เพื่อให้ผู้ที่สนใจฝากสินค้า สามารถนำสินค้ามาฝากขายผ่านระบบออนไลน์ได้</li>
+                                <li class="list-group-item">เพื่อให้ผู้ที่สนใจสินค้า สามารถเลือกซื้อสินค้าผ่านระบบออนไลน์ได้</li>
+                                <li class="list-group-item">เพื่อพัฒนาทักษะการออกแบบเว็บแอพพลิเคชันเพื่อไปต่อยอดในการทำงาน</li>
+                                <li class="list-group-item">เพื่อพัฒนาเว็บแอพพลิเคชันด้วยการเขียนโปรแกรมเชื่อมต่อฐานข้อมูลด้วย Python และ SQL</li>
+                            </ol>
+                        </div>
+                        <div class="col-xl-2"></div>
+                    </div>
+
+                    <div class="row pt-5 pb-5">
+                        <div class="col-lg-4">
+                            <img src="{% static 'image/shopping-cart.png' %}" alt="PNG" style="width: 50%">
+                        </div>
+                        <div class="col-lg-4">
+                            <img src="{% static 'image/web.png' %}" alt="PNG" style="width: 50%">
+                        </div>
+                        <div class="col-lg-4">
+                            <img src="{% static 'image/code.png' %}" alt="PNG" style="width: 50%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pt-5 text-center">
+            <a type="button" class="btn btn-danger btn-lg rounded-pill col-lg-4" href="{% url 'index' %}">สำรวจ Laptop Consignment Shop</a>
+        </div>
+
+    </div>
+{% endblock %}

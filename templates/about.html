@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <img src="{% static 'image/image-about1.jpg' %}" alt="Image About"
+         style="object-fit:cover; width:100%; height: 600px">
+
+    <div class="container pt-5">
+        <div class="pt-5 text-center">
+            <h2 style="color: #C25B56"><b>Laptop Consignment Shop</b></h2>
+            <br>
+            <p>
+                Laptop Consignment Shop เป็นแพลตฟอร์มอีคอมเมิร์ซในเอเชีย เปิดตัวในปี 2022
+                เป็นแพลตฟอร์มที่ได้รับการออกแบบให้เหมาะกับภูมิภาค
+                ด้วยการมอบประสบการณ์การช้อปปิ้งออนไลน์ที่ปลอดภัยและรวดเร็ว
+                ผ่านการชำระเงินและการส่งมอบที่แข็งแกร่งแก่ลูกค้าของเรา
+                เราเชื่อว่าการช้อปปิ้งออนไลน์สามารถเข้าถึงได้ง่ายและเพลิดเพลิน นี่คือวิสัยทัศน์ของ Laptop Consignment
+                Shop ที่ปรารถนาจะส่งมอบให้กับลูกค้าบนแพลตฟอร์มในทุกๆ วัน
+            </p>
+
+            <div class="pt-5">
+                <a type="button" class="btn btn-danger btn-lg rounded-pill col-lg-4" href="{% url 'index' %}">สำรวจ Laptop Consignment Shop</a>
+            </div>
+        </div>
+
+        <div class="row pt-5 text-center">
+            <div class="col-lg-6 pt-5">
+                <div class="card pb-4 shadow-sm">
+                    <h4 class="card-header pt-3" style="color: white; background-color: #C25B56">วัตถุประสงค์ของเรา</h4>
+                    <div class="card-body">
+                        <p class="card-text">
+                            เราเชื่อในพลังการเปลี่ยนแปลงของเทคโนโลยีและต้องการเปลี่ยนโลกให้ดีขึ้นโดยการให้แพลตฟอร์มในการเชื่อมต่อผู้ซื้อและผู้ขายภายในชุมชนเดียว
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 pt-5">
+                <div class="card shadow-sm">
+                    <h4 class="card-header pt-3" style="color: white; background-color: #C25B56">ตำแหน่งของเรา</h4>
+                    <div class="card-body">
+                        <p class="card-text">
+                            Laptop Consignment Shop
+                            นำเสนอประสบการณ์ช้อปปิ้งออนไลน์แบบครบวงจรให้แก่ผู้ใช้อินเทอร์เน็ตทั่วภูมิภาค
+                            ให้ผู้คนได้เลือกผลิตภัณฑ์ที่หลากหลาย ค้นพบสังคมใหม่ๆ และรับบริการเติมเต็มอย่างไม่มีสิ้นสุด
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pt-5 text-center">
+            <div class="card shadow-sm">
+                <h4 class="card-header pt-3" style="color: white; background-color: #C25B56">ตัวตนของเรา</h4>
+                <div class="card-body">
+                    <p class="card-text">
+                        นิยามว่าเราคือใคร - สื่อสารอย่างไร ประพฤติอย่างไร หรือตอบสนองต่อสถานการณ์ต่างๆ อย่างไร -
+                        สาระสำคัญ คือพวกเราเรียบง่าย มีความสุข และร่วมมือร่วมใจ<br>
+                        ลักษณะสำคัญเหล่านี้คือสิ่งที่มองเห็นได้ในทุกย่างก้าวของการเดินทางของ Laptop Consignment Shop
+                    </p>
+
+                    <div class="row pt-5">
+                        <div class="col-lg-4">
+                            <img src="{% static 'image/simple.png' %}" alt="PNG" style="width: 50%">
+                            <h5 class="card-title mt-5"><b>เรียบง่าย</b></h5>
+                            <p>
+                                พวกเราเชื่อในความเรียบง่ายและความจริงใจ ตอกย้ำถึงชีวิตที่ซื่อสัตย์
+                                ติดดินและจริงใจต่อตนเอง
+                            </p>
+                        </div>
+                        <div class="col-lg-4">
+                            <img src="{% static 'image/happy.png' %}" alt="PNG" style="width: 50%">
+                            <h5 class="card-title mt-5"><b>มีความสุข</b></h5>
+                            <p>
+                                พวกเราเป็นมิตร รักความสนุก และเต็มไปด้วยพลังงาน กระจายความสุขให้กับทุกคนที่พบ
+                            </p>
+                        </div>
+                        <div class="col-lg-4">
+                            <img src="{% static 'image/together.png' %}" alt="PNG" style="width: 50%">
+                            <h5 class="card-title mt-5"><b>ร่วมมือร่วมใจ</b></h5>
+                            <p>
+                                พวกเราสนุกกับการใช้เวลาร่วมกันขณะช้อปปิ้งออนไลน์กับเพื่อนและครอบครัว
+                                ทำสิ่งที่เรารักด้วยกัน
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pt-5 text-center">
+            <div class="card shadow-sm">
+            <h4 class="card-header pt-3" style="color: white; background-color: #C25B56">สถานที่ตั้ง</h4>
+                <div class="row">
+                    <div class="col-lg-4 mt-4">
+                        <div class="card-body" >
+                            <div class="row text-center d-flex justify-content-center" style="font-size: 14px">
+                                <img src="{% static 'image/logo.png' %}" alt="Logo" style="width: 300px" class="rounded-pill">
+                            </div>
+<br>
+                            <div class="card-title" style="text-align: center;font-size: 26px"><b>Laptop Consignment Shop</b></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1913.240141275666!2d102.79807874727138!3d16.451200904911783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x312261dc935121f9%3A0xc255b3873a211c67!2sPuangpetch%20Housing%204!5e0!3m2!1sen!2sth!4v1665954492013!5m2!1sen!2sth" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+{% endblock %}

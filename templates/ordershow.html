@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}<br><br>
+<div style="font-size: 36px;text-align: center">คำสั่งซื้อ</div>
+<div class="container mt-5">
+        <div class="row">
+                <div class="card-group">
+
+{% for order in my_data  %}
+            <div class="col-md-4">
+                <div class="card">
+                        {% if order.payslip_pic %}
+                        <img class="card-img-top" src="{{ order.payslip_pic.url }}" alt="Card image" style="width:250px;height:250px;margin-left: auto;margin-right: auto">
+                        {% else %}
+                        <img class="card-img-top" src="{% static 'image/noimage.jpg' %}" alt="Card image" style="width:250px;height:250px;margin-left: auto;margin-right: auto">
+                        {% endif %}
+                        <div class="card-body pt-0">
+                            <p class="card-title">
+                        <div class="d-flex justify-content-center ">
+                            <div>
+                                <div>เลขที่ออเดอร์ ::: {{ order.or_id }}</div>
+                                <div>วันที่ ::: {{ order.date_buy }}</div>
+                                <div>รหัสสินค้า ::: {{ order.pro_id }}</div>
+                                <div>ราคา ::: {{ order.or_sale }}</div>
+                                <div>ที่อยู่จัดส่ง ::: {{ order.deli_address }}</div>
+                                <div>สถานะ ::: {{ order.status }}</div>
+                                <div>ธนาคาร ::: {{ order.bank_select }}</div>
+                                <div>ID ผู้ซื้อ ::: {{ order.u_id }}</div>
+                                <div><a href="{% url 'showOrder' order.or_id %}" class="btn btn btn-outline-danger mt-3">&ensp;<i class="fa-solid fa-circle-info"></i>&ensp;รายละเอียด</a></div>
+                                {% if order.status == 'waiting' %}
+                                    <a onclick="EXTREMEchonditionchoicechoiceforadmininordertoapprovedorrejectedorderfromcustomer('{{ order.or_id }}','{{ order.pro_id_id }}')" class="btn btn btn-outline-danger mt-3"><i class="fa-solid fa-xmark"></i>&ensp;จัดการออเดอร์</a>
+                                    {% endif %}
+                            </div></div>
+                        <div class="text-center">
+                            <a class="btn btn btn-outline-danger mt-3" style="display: none"><i class="fa-solid fa-check"></i></a>
+
+                        </div>
+                    </div>
+            </div>
+ {% empty %}
+    <div class="card">
+                        <div class="card-body pt-0">
+                            <p class="card-title">
+                                <div style="padding: 35px 0;text-align: center;font-size: 46px">ไม่มีออเดอร์</div>
+
+
+                        </div>
+                    </div>
+ {% endfor %}
+                        </div>
+            </div>
+        </div>
+</div>
+    <script>
+    function EXTREMEchonditionchoicechoiceforadmininordertoapprovedorrejectedorderfromcustomer(D1,D2){
+        Swal.fire({
+              title: 'ยอมรับหรือปฏิเสธออเดอร์',
+              icon: 'question',
+              showDenyButton: true,
+              showCancelButton: true,
+              confirmButtonText: 'ยืนยัน',
+              denyButtonText: `ปฏิเสธ`,
+              cancelButtonText:'ยกเลิก'
+            }).then((result) => {
+              /* Read more about isConfirmed, isDenied below */
+              if (result.isConfirmed) {
+                Swal.fire({
+                title: 'ยืนยันการยอมรับออเดอร์',
+                text: "การกระทำต่อไปนี้ ไม่สามารถย้อนคืนได้",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ยืนยัน',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    try{
+                        document.location.href="/ordershow/orderApproved/"+D1+'/'+D2
+                        }
+                    catch(error)
+                        {
+                    Swal.fire({
+                          icon: 'error',
+                          text: 'เกิดข้อผิดพลาด',
+                        });
+                        }
+                }
+            })
+              } else if (result.isDenied) {
+                Swal.fire({
+                title: 'ยืนยันการปฏิเสธออเดอร์',
+                text: "การกระทำต่อไปนี้ ไม่สามารถย้อนคืนได้",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ยืนยัน',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    try{
+                        document.location.href='/ordershow/Rejected/'+D1;
+                        }
+                    catch(error)
+                        {
+                    Swal.fire({
+                          icon: 'error',
+                          text: 'เกิดข้อผิดพลาด',
+                        });
+                        }
+                }
+            })
+              }
+            })
+    }
+
+    </script>
+{% endblock %}

@@ -1,0 +1,25 @@
+ffffff
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+    very good
+    {{ user.username }}
+    <a href="{% url 'logout' %}">logout</a>
+    <a href="{% url 'dashboard' %}">dashboard</a>
+    <a href="{% url 'profile' %}">profile</a>
+    {% for product in my_data %}
+        <div><a href="{% url 'product' my_data.pro_id %}">{{ product.pro_name }}</a></div>
+        <div>{{ product.brand }}</div>
+        <div>{{ product.amount }}</div>
+        <div>{{ product.price }}</div>
+        <div>{{ product.pro_pic }}</div>
+    {% endfor %}
+    {% if request.user.is_superuser %}
+         <a href="{% url 'productconfig' %}">productconfig</a>
+    {% endif %}
+{% else %}
+    not very good
+    <a href="{% url 'login' %}">login</a>
+    <a href="{% url 'register' %}">register</a>
+{% endif %}
+{% endblock %}

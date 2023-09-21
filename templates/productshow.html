@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% if user.is_authenticated %}
+<table class="table table-borderless">
+  <thead>
+    <tr>
+      <th style="text-align: left;padding-left: 150px;font-size: 28px;font-weight: normal;">ข้อมูลสินค้า</th>
+      <th style="float:right;padding-right: 150px"><a href="{% url 'productconfig' %}" class="btn btn-success mt-3" style="font-size: 18px;font-weight: normal;"><i class="fa-solid fa-cart-plus"></i> อัพโหลดสินค้าฝากขาย</a></th>
+    </tr>
+  </thead>
+</table>
+{#        <p style="text-align: left;padding-left: 150px;font-size: 28px;font-weight: bold;">ข้อมูลสินค้า#}
+{#        <span style="float:right;padding-right: 150px"><a href="{% url 'productconfig' %}" class="btn btn-success mt-3" style="font-size: 28px;font-weight: bold;">อัพโหลดสินค้าฝากขาย</a></span>#}
+{#        </p>#}
+{% endif %}
+<div class="container text-center mt-5">
+        <div class="row">
+                <div class="card-group">
+
+{% for product in my_data  %}
+            {% if product.approvedstatus == 'approved' and product.amount == 'instock' or user.is_superuser %}
+            <div class="col-md-4">
+                <div class="card">
+                        {% if product.pro_pic %}
+                            <img class="card-img-top" src="{{ product.pro_pic.url }}" alt="Card image" style="width:250px;height:250px;margin-left: auto;margin-right: auto">
+                        {% else %}
+                        <img class="card-img-top" src="{% static 'image/noimage.jpg' %}" alt="Card image" style="width:250px;height:250px;margin-left: auto;margin-right: auto">
+                        {% endif %}
+                            <div class="card-body pt-0">
+                            <p class="card-title">
+                                <h3>{{ product.pro_name }}</h3>
+                            {% if user.is_superuser %}
+                                <h5>สถานะ : {{ product.approvedstatus }}</h5>
+                                <h5>คลัง : {{ product.amount }}</h5>
+                                {% if product.approvedstatus == 'waiting' %}
+                                    <a onclick="EXTREMEchonditionchoiceforadmininordertoapprovedorrejectedproductfromcustomer('{{ product.pro_id }}')" class="btn btn btn-outline-danger mt-3"><i class="fa-solid fa-xmark"></i>&ensp;จัดการสินค้า</a>
+                                    {% endif %}
+                            {% endif %}
+
+                            <a href="{% url 'showProduct' product.pro_id %}" class="btn btn btn-outline-danger mt-3"><i class="fa-solid fa-circle-info"></i>&ensp;รายละเอียด</a>
+
+                        </div>
+                </div>
+            </div>
+
+{#            <div>Product Name ::: {{ product.pro_name }}</div>#}
+{#            {% if product.pro_pic %}#}
+{#                <div><img src="{{ product.pro_pic.url }}" width="150px" height="150px"></div>#}
+{#            {% endif %}#}
+{#            {% if user.is_active %}#}
+{#                <div><a href="{% url 'showProduct' product.pro_id %}">MORE</a></div>#}
+{#            {% endif %}#}
+{#            {% if user.is_superuser %}#}
+{#                  <div>Status ::: {{ product.approvedstatus }}</div>#}
+{#                  <div>Product ID ::: {{ product.pro_id }}</div>#}
+{#                  <div>Amount ::: {{ product.amount }}</div>#}
+{#                  <div>Adder ::: <a href="{% url 'showUser' product.id_link_id %}">{{ product.id_link_id }}</a></div>#}
+{#                  <div>Time Add ::: {{ product.date_add }}</div>#}
+{#                  {% if product.approvedstatus == 'waiting' %}#}
+{#                        <div><a href="{% url 'productApproved' product.pro_id %}">Approve</a>#}
+{#                        <a href="{% url 'productRejected' product.pro_id %}">Rejected</a></div>#}
+{#                  {% endif %}#}
+{#                  <a href="productupdate/{{ product.pro_id }}">UPDATE</a>#}
+{#                  <a href="productdelete/{{ product.pro_id }}">DELETE</a>#}
+{#                {% endif %}#}
+
+            {% endif %}
+    {% empty %}
+    <div class="card">
+                        <div class="card-body pt-0">
+                            <p class="card-title">
+                                <div style="padding: 35px 0;text-align: center;font-size: 46px">ไม่มีสินค้า</div>
+
+
+                        </div>
+                    </div>
+
+
+    {% endfor %}
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+{#    <script>#}
+{#        function confirmedDelete(pro_id){#}
+{#            Swal.fire({#}
+{#                title: 'ยืนยันลบ',#}
+{#                text: "การกระทำต่อไปนี้ ไม่สามารถย้อนกลับได้",#}
+{#                icon: 'warning',#}
+{#                showCancelButton: true,#}
+{#                confirmButtonColor: '#3085d6',#}
+{#                cancelButtonColor: '#d33',#}
+{#                confirmButtonText: 'ยืนยัน',#}
+{#                cancelButtonText: 'ยกเลิก'#}
+{#            }).then((result) => {#}
+{#                if (result.isConfirmed) {#}
+{#                    try{#}
+{#                        document.location.href="{% url 'productdelete' pro_id %}"#}
+{#                        }#}
+{#                    catch(error)#}
+{#                        {#}
+{#                    Swal.fire({#}
+{#                          icon: 'error',#}
+{#                          text: 'เกิดข้อผิดพลาด',#}
+{#                        });#}
+{#                        }#}
+{#                }#}
+{#            })#}
+{#        }#}
+{#    </script>#}
+        <script>
+    function EXTREMEchonditionchoiceforadmininordertoapprovedorrejectedproductfromcustomer(D1){
+        Swal.fire({
+              title: 'ยอมรับหรือปฏิเสธสินค้า',
+              icon: 'question',
+              showDenyButton: true,
+              showCancelButton: true,
+              confirmButtonText: 'ยืนยัน',
+              confirmButtonColor:'#3085d6',
+              denyButtonColor: '#dd6b55',
+              denyButtonText: `ปฏิเสธ`,
+              cancelButtonText:'ยกเลิก'
+            }).then((result) => {
+              /* Read more about isConfirmed, isDenied below */
+              if (result.isConfirmed) {
+                Swal.fire({
+                title: 'ยืนยันการยอมรับสินค้า',
+                text: "การกระทำต่อไปนี้ ไม่สามารถย้อนคืนได้",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'ยืนยัน',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    try{
+                        document.location.href="/productshow/Approved/"+D1;
+                        }
+                    catch(error)
+                        {
+                    Swal.fire({
+                          icon: 'error',
+                          text: 'เกิดข้อผิดพลาด',
+                        });
+                        }
+                }
+            })
+              } else if (result.isDenied) {
+                Swal.fire({
+                title: 'ยืนยันการปฏิเสธสินค้า',
+                text: "การกระทำต่อไปนี้ ไม่สามารถย้อนคืนได้",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dd6b55',
+                confirmButtonText: 'ยืนยัน',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    try{
+                        document.location.href='/productshow/Rejected/'+D1;
+                        }
+                    catch(error)
+                        {
+                    Swal.fire({
+                          icon: 'error',
+                          text: 'เกิดข้อผิดพลาด',
+                        });
+                        }
+                }
+            })
+              }
+            })
+    }
+
+    </script>
+{% endblock %}

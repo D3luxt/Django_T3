@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <br><br><br>
+    <div class="container bg-white h-auto w-75 bg-light border border-4 ">
+        <center>
+            <form method="POST" action='{% url 'productconfig' %}' name="proadd" enctype="multipart/form-data">
+              {% csrf_token %}
+
+                <br><br>
+
+                <div class="border border-1 w-50">
+                    <br>
+                    <h4>เพิ่มสินค้าฝากขาย</h4>
+                    <br>
+                    <div class="form-outline mb-4 w-50">
+                    ชื่อสินค้า :<br>
+                    {{ form.pro_name }}
+                    {{ form.pro_name.errors }}</div>
+                    <div class="form-outline mb-4 w-50">
+                    แบรนด์สินค้า :<br>
+                    {{ form.brand }}
+                    {{ form.brand.errors }}</div>
+                    <div class="form-outline mb-4 w-50">
+                    รายละเอียด :<br>
+                    {{ form.pro_desc }}
+                    {{ form.pro_desc.errors }}</div>
+                    <div class="form-outline mb-4 w-50">
+                    ราคาสินค้า :<br>
+                    {{ form.price }}
+                    {{ form.price.errors }}</div>
+                    {% if request.user.is_superuser %}
+                        <div class="form-outline mb-4 w-50">
+                    สินค้าในคลัง :
+                    {{ form.amount }}
+                    {{ form.amount.errors }}</div>
+                        <div class="form-outline mb-4 w-50">
+                        สถานะสินค้า :<br>
+                    {{ form.approvedstatus }}
+                    {{ form.approvedstatus.errors }}</div>
+                    {% endif %}
+                    <div class="form-outline mb-4 w-50">
+                    รูปภาพสินค้า :<br>
+                    {{ form.pro_pic }}
+                    {{ form.pro_pic.errors }}</div>
+
+                    <button type="button" onclick="confirmed()" class="btn btn-primary btn-block mb-4 w-50">ยืนยัน</button>
+                    <br>
+                </div>
+
+            </form>
+        </center>
+        <br>
+    </div>
+    <br>
+    <br>
+
+    <script>
+        function confirmed(){
+            Swal.fire({
+                title: 'ต้องการยืนยันการบันทึกหรือไม่',
+                showDenyButton: true,
+                confirmButtonText: 'บันทึก',
+                denyButtonText: `ไม่บันทึก`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    try{
+                         document.proadd.submit();
+                        }
+                    catch(error)
+                        {
+                    Swal.fire({
+                          icon: 'error',
+                          text: 'เกิดข้อผิดพลาด',
+                        });
+                        }
+                } else if (result.isDenied) {
+                    Swal.fire('ข้อมูลไม่ถูกบันทึก', '', 'info')
+                }
+                    })}
+    </script>
+
+{% endblock %}

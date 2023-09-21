@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+    <br><br><br>
+    <div class="container bg-white h-auto w-75 bg-light border border-4 "><br>
+    <table class="table table-hover text-center" >
+        <thead>
+            <tr style="background-color: #C25B56;color:white" >
+              <th scope="col">บัญชีธนาคาร</th>
+              <th scope="col">ชื่อบัญชี ธนาคาร</th>
+            </tr>
+    </thead>
+    <tbody>
+        {% for i in showpay %}
+
+    <tr >
+      <td>{{ i.bank_account_number }}</td>
+      <td>{{ i.bank_account }}</td>
+    </tr>
+
+        {% endfor %}
+    </tbody>
+        </table>
+        <center>
+            <form method="POST" action='{% url 'paymentAdd' %}' enctype="multipart/form-data">
+              {% csrf_token %}
+
+                <br><br>
+
+                <div class="border border-1 w-50">
+                    <br>
+                    <h4>เพิ่มช่องทางสำหรับชำระเงิน</h4>
+                    <br>
+                    <div class="form-outline mb-4 w-50">
+                    เลขที่ธนาคาร + ชื่อธนาคาร: <br>
+                    {{ form.bank_account_number }}
+                    {{ form.bank_account_number.errors }}</div>
+                    <div class="form-outline mb-4 w-50">
+                    ชื่อเจ้าของบัญชีธนาคาร : <br>
+                    {{ form.bank_account }}
+                    {{ form.bank_account.errors }}</div>
+                    <!-- Repeat Password input -->
+                    <!-- submit button -->
+                    <button type="submit" class="btn btn-primary btn-block mb-4 w-50">เพิ่มช่องทาง</button>
+
+                    <br>
+                </div>
+
+            </form>
+        </center>
+        <br>
+    </div>
+    <br>
+    <br>
+
+{% endblock %}

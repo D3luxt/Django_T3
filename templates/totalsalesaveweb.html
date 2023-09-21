@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+
+        <br><br><br>
+    <div class="container bg-white h-auto w-75 bg-light border border-4 ">
+
+
+
+        <center>
+            <form method="POST" action='' name='totalsave' enctype="multipart/form-data">
+              {% csrf_token %}
+
+                <br><br>
+
+                <div class="border border-1 w-50">
+                    <br>
+                    <h2>บันทึกการขาย</h2>
+                    <br>
+                    {% if formcount == 0 %}
+                    <div class="form-outline mb-4 w-50" style="font-size: 20px">ไม่มียอดขาย</div>
+                    {% else %}
+                    <div class="form-outline mb-4 w-50">ยอดขาย ::: {{ form.total }} บาท</div>
+                    <div class="form-outline mb-4 w-50">ยอดออเดอร์ ::: {{ formcount }} ออเดอร์</div>
+
+                    <br>
+                    <div class="form-outline mb-4 w-50">
+                    ยอดขาย<br>
+                        <input type="text" name="totalsale" maxlength="45" required="" id="id_totalsale">
+                    </div>
+                    <!-- Password input -->
+                    <div class="form-outline mb-4 w-50">
+                    ยอดออเดอร์<br>
+                    <input type="text" name="totalorder" maxlength="45" required="" id="id_totalorder">
+                    </div>
+
+                    <button type="button" onclick="confirmed()" class="btn btn-primary btn-block mb-4 w-50">บันทึก</button>
+                    {% endif %}
+                    <br>
+                </div>
+
+            </form>
+        </center>
+        <br>
+
+
+    <table class="table table-hover text-center" >
+        <thead>
+            <tr style="background-color: #C25B56;color:white" >
+              <th scope="col">ID transaction</th>
+              <th scope="col">ยอดขาย</th>
+              <th scope="col">จำนวนออเดอร์</th>
+              <th scope="col">วันที่บันทึก</th>
+            </tr>
+    </thead>
+    <tbody>
+        {% for i in showtransaction %}
+
+    <tr >
+      <td>{{ i.trans_id }}</td>
+      <td>{{ i.totalsale }}</td>
+      <td>{{ i.totalorder }}</td>
+      <td>{{ i.date_save }}</td>
+    </tr>
+
+        {% endfor %}
+    </tbody>
+        </table>
+
+
+    </div>
+    <br>
+    <br>
+    <script type="text/javascript">
+        function confirmed(){
+            var TOTALSELL = parseFloat(document.getElementById('id_totalsale').value);
+            var TOTALORDER = parseFloat(document.getElementById('id_totalorder').value);
+            var FORMTOTAL = parseFloat({{ form.total }})
+            var FORMCOUNT = parseFloat({{ formcount }})
+            var None
+            console.log(TOTALSELL,TOTALORDER,FORMTOTAL,FORMCOUNT)
+            if (TOTALSELL === FORMTOTAL && TOTALORDER === FORMCOUNT)
+            {
+                Swal.fire({
+                    title: 'ต้องการยืนยันการบันทึกหรือไม่',
+                    showDenyButton: true,
+                    confirmButtonText: 'บันทึก',
+                    denyButtonText: `ไม่บันทึก`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        try {
+                            document.totalsave.submit();
+                        } catch (error) {
+                            Swal.fire({
+                                icon: 'error',
+                                text: 'เกิดข้อผิดพลาด',
+                            });
+                        }
+                    } else if (result.isDenied) {
+                        Swal.fire('ข้อมูลไม่ถูกบันทึก', '', 'info')
+                    }
+                })
+            }
+            else if(FORMCOUNT === 0 ){
+                Swal.fire({
+                        icon: 'error',
+                        title: 'ไม่มีออเดอร์',
+                        // text: (FORMTOTAL+" != "+TOTALSELL + " , " + {{ formcount }} +" != "+TOTALORDER),
+                    }
+                )
+            }
+            else{
+                Swal.fire({
+                        icon: 'error',
+                        title: 'ค่าที่ป้อนไม่ถูกต้อง',
+                        // text: (FORMTOTAL+" != "+TOTALSELL + " , " + {{ formcount }} +" != "+TOTALORDER),
+                    }
+                )
+            }
+        }
+    </script>
+
+
+{% endblock %}

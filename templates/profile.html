@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <br><br><br>
+    <div class="container bg-white h-auto w-75 bg-light border border-4 ">
+        <center>
+            <form method="POST" action='{% url 'profile' %}' name='profileup' enctype="multipart/form-data">
+              {% csrf_token %}
+
+                <br><br>
+
+                <div class="border border-1 w-50">
+                    <br>
+                    <h4>แก้ไขข้อมูลส่วนตัว</h4>
+                    <br>
+
+                  <div class="border border-1 w-50">
+                    ชื่อ :<br>
+                    {{ form.first_name }}
+                    {{ form.first_name.errors }}</div><br>
+                  <div class="border border-1 w-50">
+                    นามสกุล :<br>
+                    {{ form.last_name }}
+                    {{ form.last_name.errors }}</div><br>
+                  <div class="border border-1 w-50">
+                    เพศ :
+                    {{ ex_form.gender }}
+                    {{ ex_form.gender.errors }}</div><br>
+                  <div class="border border-1 w-50">
+                    เบอร์โทรศัพท์ :
+                    {{ ex_form.phone }}
+                    {{ ex_form.phone.errors }}</div><br>
+
+                  <div class="border border-1 w-50">
+                    รูปภาพ :
+                    {{ ex_form.profile_pic }}
+                    {{ ex_form.profile_pic.errors }}</div><br>
+                    <!-- Password input -->
+
+                    <button type="button" onclick="confirmed()" class="btn btn-primary btn-block mb-4 w-50">ยืนยันการแก้ไข</button>
+                    <br>
+                </div>
+
+            </form>
+        </center>
+        <br>
+    </div>
+    <br>
+    <br>
+
+    <script>
+        function confirmed(){
+            Swal.fire({
+                title: 'ต้องการยืนยันการบันทึกหรือไม่',
+                showDenyButton: true,
+                confirmButtonText: 'บันทึก',
+                denyButtonText: `ไม่บันทึก`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    try{
+                         document.profileup.submit();
+                        }
+                    catch(error)
+                        {
+                    Swal.fire({
+                          icon: 'error',
+                          text: 'เกิดข้อผิดพลาด',
+                        });
+                        }
+                } else if (result.isDenied) {
+                    Swal.fire('ข้อมูลไม่ถูกบันทึก', '', 'info')
+                }
+                    })}
+    </script>
+
+
+{% endblock %}
